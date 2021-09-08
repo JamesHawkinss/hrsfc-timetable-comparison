@@ -11,4 +11,6 @@ app.get("/", (req, res) => {
     res.json({ hello: "world"});
 });
 
-app.listen(config.port);
+app.listen(config.port, () => {
+    console.log(`Running on port ${config.port}`)
+});

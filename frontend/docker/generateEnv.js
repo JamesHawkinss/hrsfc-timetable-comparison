@@ -10,7 +10,9 @@ if (process.argv[2]) {
         // remove comments
         .map(v=>{
             let i = v.indexOf("#");
-            return i !== -1 ? v.slice(0, i) : v;
+            v = i !== -1 ? v.slice(0, i) : v;
+            v = v.replace("\n", "").replace("\r", "");
+            return v;
         })
         // filter out invalid syntax lines
         .filter(v=>v.indexOf("=") !== -1)
