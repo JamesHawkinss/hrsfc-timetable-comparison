@@ -1,16 +1,22 @@
 const config = require("./config");
 const express = require("express");
-const cors = require("cors")
 const app = express();
 
-app.use(cors({
-    origin: config.corsDomains,
-}));
+async function init() {
+  // setup database
+  await require('./setup/db').setupDb();
 
-app.get("/", (req, res) => {
-    res.json({ hello: "world"});
-});
+  // setup plugins
+  const middleware = require('./setup/middleware');
+  require('./setup/passport')(app);
+  middleware.setupMiddleware(app);
+  require('./setup/routes')(app);
+  middleware.setupAfterware(app);
 
-app.listen(config.port, () => {
-    console.log(`Running on port ${config.port}`)
-});
+  // start server
+  app.listen(parseInt(process.env.PORT), () => {
+    console.log(`Server listening on port ${process.env.PORT}.`);
+  });
+}
+
+init().catch(console.error);

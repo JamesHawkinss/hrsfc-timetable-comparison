@@ -1,24 +1,39 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <h1>{{env}}</h1>
+    <AuthLoading v-if="showAuthLoadScreen"/>
+    <div v-if="showLoginScreen">
+      <p>Login screen here</p>
+    </div>
+    <div v-if="isLoggedIn">
+      <h1>You are logged in</h1>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AuthLoading from './components/AuthLoading'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  },
   data() {
     return {
       env: window._env_,
     }
-  }
+  },
+  components: {
+    AuthLoading,
+  },
+  computed: {
+    ...mapGetters([
+      'showAuthLoadScreen',
+      'showLoginScreen',
+      'isLoggedIn',
+    ])
+  },
+  mounted() {
+    this.$store.dispatch('loadUser');
+  },
 }
 </script>
 

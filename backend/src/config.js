@@ -1,7 +1,7 @@
 const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, `../.env`) });
 
-const requiredEnv = ["PORT"];
+const requiredEnv = ["PORT", "MONGO_URL", "SESSION_SECRET", "SALT_ROUNDS"];
 
 requiredEnv.forEach(v => {
     if (!process.env[v] || process.env[v].length == 0) {
