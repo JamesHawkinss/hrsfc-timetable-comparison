@@ -1,19 +1,17 @@
 const { User } = require('../models/User');
 const bcrypt = require('bcrypt');
 const LocalStrategy = require('passport-local');
-const mongoose = require('mongoose');
-const salts = parseInt(process.env.SALT_ROUNDS);
 
 const loginStrategy = new LocalStrategy({
-    usernameField: 'email',
+    usernameField: 'username',
     passwordField: 'password',
     passReqToCallback: true
   },
-  async (req, email, pass, done) => {
+  async (req, username, pass, done) => {
     try {
-      email = email.trim().toLowerCase();
+      username = username.trim().toLowerCase();
       // get user
-      const user = await User.findOne({ email });
+      const user = await User.findOne({ username });
       if (!user) {
         return done(null, false);
       }

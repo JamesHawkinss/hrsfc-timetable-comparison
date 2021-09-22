@@ -3,30 +3,31 @@ const passport = require("passport");
 const { User } = require("../models/User");
 const router = express.Router();
 const bcrypt = require('bcrypt')
+const config = require('../config');
 
 async function registerUser({ username, password, studentId }) {
-    if (typeof username !== 'string')
-        return "invalidUsername"
+  if (typeof username !== 'string')
+    return "invalidUsername"
 
-    if (typeof password !== 'string')
-        return "invalidPassword"
-    
-    const hashedPassword = await bcrypt.hash(password);
+  if (typeof password !== 'string')
+    return "invalidPassword"
 
-    const newUser = new User({
-        username,
-        hashedPassword,
-        studentId
-    });
+  const hashedPassword = await bcrypt.hash(password, config.saltRounds);
 
-    try {
-        await newUser.save();
-    } catch (err) {
-        console.error(err);
-        return "unknownError";
-    }
+  const newUser = new User({
+    username,
+    password: hashedPassword,
+    studentId
+  });
 
-    return true;
+  try {
+    await newUser.save();
+  } catch (err) {
+    console.error(err);
+    return "unknownError";
+  }
+
+  return true;
 }
 
 router.post(
@@ -62,22 +63,22 @@ router.post(
 router.post(
   "/login",
   (req, res, next) => {
-    passport.authenticate('local', function(err, user) {
-      if (err)
-        return res.status(500).json({
+    passport.authenticate('local', function (err, user) {
+      if (err) return res.status(500).json({
           status: false,
           error: err
         })
-      if (!user)
-        return res.status(400).json({
+
+      if (!user) return res.status(400).json({
           status: false
         })
-      req.logIn(user, function(err) {
-        if (err)
-          return res.json({
+
+      req.logIn(user, function (err) {
+        if (err) return res.json({
             status: false,
             error: err
           })
+          
         return next();
       });
     })(req, res, next);

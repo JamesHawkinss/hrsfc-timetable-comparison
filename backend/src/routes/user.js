@@ -6,7 +6,7 @@ router.get(
     (req, res) => {
         if (req.user) {
             return res.json({ status: true, data: {
-                ...req.user
+                ...req.user.toObject()
             }})
         }
         res.status(401).json({

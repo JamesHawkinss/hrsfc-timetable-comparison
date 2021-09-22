@@ -2,7 +2,7 @@
   <div id="app">
     <AuthLoading v-if="showAuthLoadScreen"/>
     <div v-if="showLoginScreen">
-      <p>Login screen here</p>
+      <LoginForm />
     </div>
     <div v-if="isLoggedIn">
       <h1>You are logged in</h1>
@@ -12,6 +12,7 @@
 
 <script>
 import AuthLoading from './components/AuthLoading'
+import LoginForm from './components/partials/LoginForm.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -23,6 +24,7 @@ export default {
   },
   components: {
     AuthLoading,
+    LoginForm,
   },
   computed: {
     ...mapGetters([

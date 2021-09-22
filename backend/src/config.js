@@ -12,7 +12,9 @@ requiredEnv.forEach(v => {
 
 const config = {
     port: parseInt(process.env.PORT),
+    sessionSecret: process.env.SESSION_SECRET,
     corsDomains: (process.env.CORS || "").split(" ").filter(v=>v.length>0),
+    saltRounds: parseInt(process.env.SALT_ROUNDS),
 }
 
 module.exports = config;
