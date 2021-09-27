@@ -36,10 +36,7 @@ router.post(
     try {
       const result = await registerUser({ username: req.body.username, password: req.body.password, studentId: req.body.studentId });
       if (result !== true)
-        return res.status(400).json({
-          status: false,
-          errors: result
-        })
+        return res.status(400).json({ status: false, errors: result })
 
       const newUser = await User.findOne({ username: req.body.username.trim().toLowerCase() })
       await new Promise((resolve, reject) => {
@@ -64,20 +61,11 @@ router.post(
   "/login",
   (req, res, next) => {
     passport.authenticate('local', function (err, user) {
-      if (err) return res.status(500).json({
-          status: false,
-          error: err
-        })
-
-      if (!user) return res.status(400).json({
-          status: false
-        })
+      if (err) return res.status(500).json({ status: false, error: err })
+      if (!user) return res.status(400).json({ status: false })
 
       req.logIn(user, function (err) {
-        if (err) return res.json({
-            status: false,
-            error: err
-          })
+        if (err) return res.json({ status: false, error: err })
           
         return next();
       });
@@ -87,6 +75,14 @@ router.post(
     res.json({
       status: true
     })
+  }
+);
+
+router.post(
+  "/logout",
+  (req, res) => {
+    req.logout();
+    res.json({ status: true });
   }
 );
 

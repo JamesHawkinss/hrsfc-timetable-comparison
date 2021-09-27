@@ -20,6 +20,9 @@ export function createStore() {
             isLoggedIn(state) {
                 return state.isLoggedIn;
             },
+            user(state) {
+                return state.user;
+            },
         },
         mutations: {
             setUser(state, { error, loading, loggedIn, data }) { 
@@ -27,6 +30,10 @@ export function createStore() {
                 state.loadState.errored = error;
                 state.isLoggedIn = !!loggedIn;
                 state.user = data;
+            },
+            removeUser(state) {
+                state.isLoggedIn = false;
+                state.user = null;
             },
         },
         actions: {
