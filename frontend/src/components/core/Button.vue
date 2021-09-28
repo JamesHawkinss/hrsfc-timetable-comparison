@@ -7,7 +7,7 @@
 
 <style scoped>
 .button {
-  color: #f9f9fd;
+  color: #fff;
 
   font-family: inherit;
   font-size: initial;

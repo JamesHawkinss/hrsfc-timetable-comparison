@@ -9,15 +9,13 @@
 <style scoped>
     .header {
         background-color: #1a1c24;
-
-        width: 100%;
-        padding: 10px;
-        
+        padding: 1rem;
     }
 
     .header-title {
         color: #fff;
         text-decoration: none;
+        font-weight: bold;
 
         margin-right: 20px;
     }
