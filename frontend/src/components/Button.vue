@@ -7,14 +7,35 @@
 
 <style scoped>
 .button {
-    font-family: inherit;
-    font-size: initial;
-    border: 0;
+  color: #f9f9fd;
+
+  font-family: inherit;
+  font-size: initial;
+  font-weight: bold;
+
+  border: 0;
+  border-radius: 100px;
+
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+.button:hover {
+  cursor: pointer;
 }
 
 .primary {
-    background-color: blue;
-    color: white;
+  background-color: #5751d6;
+}
+
+.secondary {
+  background-color: #292b36;
+}
+
+.danger {
+  background-color: #b5444b;
 }
 </style>
 
@@ -32,10 +53,10 @@ export default {
       obj[this.type] = true;
 
       return {
-        'button': true,
+        button: true,
         ...obj,
-      }
-    }
-  }
+      };
+    },
+  },
 };
 </script>

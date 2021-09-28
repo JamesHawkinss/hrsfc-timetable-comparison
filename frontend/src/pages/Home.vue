@@ -2,7 +2,9 @@
     <div>
         <Header />
         <h1>Home :D</h1>
-        <Button @click="test()" :type="'primary'">Text</Button>
+        <Button @click="test()" :type="'primary'">Primary</Button>
+        <Button @click="test()" :type="'secondary'">Secondary</Button>
+        <Button @click="test()" :type="'danger'">Danger</Button>
     </div>
 </template>
 
